@@ -1,0 +1,3 @@
+add_library(find_intersection OBJECT find_intersection.cpp)
+
+target_include_directories(find_intersection PUBLIC include)
