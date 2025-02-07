@@ -8,7 +8,10 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
 
 # use target_compile_options(<target_name> PUBLIC <flags_list>) for each translation unit or use approach below
-set(GCC_ADDITIONAL_WARNINGS_COMPILE_FLAGS "-Werror -Wall -Wextra -Wpedantic -Wcast-align -Wcast-qual -Wconversion -Wctor-dtor-privacy -Wenum-compare -Wfloat-equal -Wnon-virtual-dtor -Wold-style-cast -Woverloaded-virtual -Wredundant-decls -Wsign-conversion -Wsign-promo")
+set(GCC_ADDITIONAL_WARNINGS_COMPILE_FLAGS "-Werror -Wall -Wextra -Wpedantic -Wcast-align -Wcast-qual -Wconversion -Wctor-dtor-privacy -Wenum-compare -Wfloat-equal -Wnon-virtual-dtor -Wold-style-cast -Woverloaded-virtual -Wredundant-decls -Wsign-promo")
+
+# set(GCC_ADDITIONAL_WARNINGS_COMPILE_FLAGS "-Werror -Wall -Wextra -Wpedantic -Wcast-align -Wcast-qual -Wconversion -Wctor-dtor-privacy -Wenum-compare -Wfloat-equal -Wnon-virtual-dtor -Wold-style-cast -Woverloaded-virtual -Wredundant-decls -Wsign-conversion -Wsign-promo")
+
 
 set(GCC_LINK_FLAGS "")
 
@@ -29,13 +32,15 @@ add_subdirectory(src)
 add_executable(bentley_ottmann)
 
 target_link_libraries(bentley_ottmann PRIVATE 
+    begin_case
     comparator
     find_intersection
     fraction
     gcd
     point
+    read_data
     segment
-    bentley_ottmann_lib
+    main
     # GTest::GTest
     # graph_validation
     # automated_adj_list_testing

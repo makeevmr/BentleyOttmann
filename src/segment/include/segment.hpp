@@ -8,11 +8,14 @@ class Segment {
 public:
     Segment(int x1, int y1, int x2, int y2);
 
-    [[nodiscard]] std::pair<const IntPoint&, const IntPoint&> getPoints() const;
+    [[nodiscard]] std::pair<const IntPoint&, const IntPoint&> getPoints()
+        const noexcept;
 
     // The function calculates coordinates only for non-vertical lines, since
-    // only such lines are in the Status and Queue.
-    [[nodiscard]] Fraction ordinateVal(const Fraction& x) const;
+    // only such lines are in the Status.
+    [[nodiscard]] Fraction ordinateVal(const Fraction& x) const noexcept;
+
+    [[nodiscard]] const Fraction& getIncline() const noexcept;
 
 private:
     const std::optional<Fraction> k_;

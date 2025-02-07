@@ -4,20 +4,27 @@
 #include <cstdint>
 #include "../../fraction/include/fraction.hpp"
 
-class IntPoint {
+struct RealPoint;
+
+struct IntPoint {
 public:
-    IntPoint(int64_t x, int64_t y);
+    IntPoint(int64_t x, int64_t y) noexcept;
+
+    explicit operator RealPoint() const noexcept;
 
     int64_t x_;
     int64_t y_;
 };
 
-class RealPoint {
+struct RealPoint {
 public:
-    RealPoint(const Fraction& x, const Fraction& y);
+    RealPoint(const Fraction& x, const Fraction& y) noexcept;
 
     Fraction x_;
     Fraction y_;
 };
+
+[[nodiscard]] bool operator<(const RealPoint& left,
+                             const RealPoint& right) noexcept;
 
 #endif  // BENTLEY_OTTMANN_SRC_POINT

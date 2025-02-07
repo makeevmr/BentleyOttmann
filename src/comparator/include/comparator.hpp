@@ -2,15 +2,22 @@
 #define BENTLEY_OTTMANN_SRC_COMPARATOR
 
 #include "../../segment/include/segment.hpp"
+#include "../../queue_item/include/queue_item.hpp"
 
-class Comparator {
+class StatusComparator {
 public:
-    explicit Comparator(Fraction& scan_line);
+    explicit StatusComparator(Fraction& scan_line);
 
-    bool operator()(const Segment* left, const Segment* right) const;
+    bool operator()(const Segment** const& left,
+                    const Segment** const& right) const;
 
 private:
     Fraction& scan_line_x_;
+};
+
+class QueueComparator {
+public:
+    bool operator()(const QueueItem& left, const QueueItem& right) const;
 };
 
 #endif  // BENTLEY_OTTMANN_SRC_COMPARATOR

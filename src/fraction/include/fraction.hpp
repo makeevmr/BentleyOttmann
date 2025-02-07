@@ -6,35 +6,60 @@
 
 class Fraction {
 public:
-    Fraction(int64_t numerator, int64_t denomintaor);
+    Fraction() noexcept;
+
+    Fraction(int64_t numerator, int64_t denomintaor) noexcept;
 
     Fraction(const Fraction& other);
 
-    Fraction& operator*=(const Fraction& other);
+    Fraction& operator=(const Fraction& other) noexcept;
+
+    Fraction& operator+=(const Fraction& other) noexcept;
+
+    Fraction& operator-=(const Fraction& other) noexcept;
+
+    Fraction& operator*=(const Fraction& other) noexcept;
+
+    Fraction& operator/=(const Fraction& other) noexcept;
 
 private:
     int64_t numerator_;
     int64_t denominator_;
 
-    friend std::ostream& operator<<(std::ostream& out, const Fraction& frac);
+    friend std::ostream& operator<<(std::ostream& out,
+                                    const Fraction& frac) noexcept;
 
-    friend Fraction operator*(const Fraction& left, const Fraction& right);
+    friend bool operator>(const Fraction& left, const Fraction& right) noexcept;
 
-    friend Fraction operator+(const Fraction& left, const Fraction& right);
-
-    friend Fraction operator-(const Fraction& left, const Fraction& right);
-
-    friend bool operator>(const Fraction& left, const Fraction& right);
+    friend bool operator==(const Fraction& left,
+                           const Fraction& right) noexcept;
 };
 
-std::ostream& operator<<(std::ostream& out, const Fraction& frac);
+std::ostream& operator<<(std::ostream& out, const Fraction& frac) noexcept;
 
-Fraction operator*(const Fraction& left, const Fraction& right);
+[[nodiscard]] Fraction operator+(const Fraction& left,
+                                 const Fraction& right) noexcept;
 
-Fraction operator+(const Fraction& left, const Fraction& right);
+[[nodiscard]] Fraction operator-(const Fraction& left,
+                                 const Fraction& right) noexcept;
 
-Fraction operator-(const Fraction& left, const Fraction& right);
+[[nodiscard]] Fraction operator*(const Fraction& left,
+                                 const Fraction& right) noexcept;
 
-bool operator>(const Fraction& left, const Fraction& right);
+[[nodiscard]] Fraction operator/(const Fraction& left,
+                                 const Fraction& right) noexcept;
+
+[[nodiscard]] bool operator>(const Fraction& left,
+                             const Fraction& right) noexcept;
+
+[[nodiscard]]
+bool operator<(const Fraction& left, const Fraction& right) noexcept;
+
+// All fractions are irreducible
+[[nodiscard]] bool operator==(const Fraction& left,
+                              const Fraction& right) noexcept;
+
+[[nodiscard]] bool operator!=(const Fraction& left,
+                              const Fraction& right) noexcept;
 
 #endif  // BENTLEY_OTTMANN_SRC_FRACTION

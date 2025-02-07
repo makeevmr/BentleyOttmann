@@ -1,5 +1,7 @@
 #include "include/segment.hpp"
 
+#include <cassert>
+
 Segment::Segment(int x1, int y1, int x2, int y2)
     : k_(x2 == x1 ? std::optional<Fraction>()
                   : std::optional<Fraction>(Fraction(y2 - y1, x2 - x1))),
@@ -9,10 +11,18 @@ Segment::Segment(int x1, int y1, int x2, int y2)
       point2_(x2, y2) {}
 
 [[nodiscard]] std::pair<const IntPoint&, const IntPoint&> Segment::getPoints()
-    const {
+    const noexcept {
     return std::pair<const IntPoint&, const IntPoint&>{point1_, point2_};
 }
 
-[[nodiscard]] Fraction Segment::ordinateVal(const Fraction& x) const {
+// The function calculates coordinates only for non-vertical lines, since
+// only such lines are in the Status.
+[[nodiscard]] Fraction Segment::ordinateVal(const Fraction& x) const noexcept {
     return k_.value() * x + b_.value();
+}
+
+// applies only to non - vertical segments
+[[nodiscard]] const Fraction& Segment::getIncline() const noexcept {
+    assert(k_.has_value());
+    return k_.value();
 }

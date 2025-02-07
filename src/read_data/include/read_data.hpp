@@ -1,0 +1,16 @@
+#ifndef BENTLEY_OTTMANN_SRC_READ_DATA
+#define BENTLEY_OTTMANN_SRC_READ_DATA
+
+#include "../../segment/include/segment.hpp"
+#include "../../comparator/include/comparator.hpp"
+
+#include <fstream>
+#include <vector>
+#include <queue>
+
+void readData(std::ifstream& input_file, std::vector<Segment>& segments,
+              std::vector<const Segment*>& segment_ptrs,
+              std::priority_queue<QueueItem, std::vector<QueueItem>,
+                                  QueueComparator>& min_heap);
+
+#endif  // BENTLEY_OTTMANN_SRC_READ_DATA
