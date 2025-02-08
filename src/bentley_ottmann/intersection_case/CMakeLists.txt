@@ -1,0 +1,3 @@
+add_library(intersection_case OBJECT intersection_case.cpp)
+
+target_include_directories(intersection_case PUBLIC include)

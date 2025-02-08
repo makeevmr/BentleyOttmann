@@ -4,6 +4,8 @@
 #include "../../segment/include/segment.hpp"
 #include "../../queue_item/include/queue_item.hpp"
 
+#include <vector>
+
 class StatusComparator {
 public:
     explicit StatusComparator(Fraction& scan_line);
@@ -17,7 +19,12 @@ private:
 
 class QueueComparator {
 public:
+    explicit QueueComparator(const std::vector<Segment>& segments) noexcept;
+
     bool operator()(const QueueItem& left, const QueueItem& right) const;
+
+private:
+    const std::vector<Segment>& segments_;
 };
 
 #endif  // BENTLEY_OTTMANN_SRC_COMPARATOR

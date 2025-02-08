@@ -2,6 +2,7 @@
 
 void readData(std::ifstream& input_file, std::vector<Segment>& segments,
               std::vector<const Segment*>& segment_ptrs,
+              std::vector<int>& reversed_segment_ptrs,
               std::priority_queue<QueueItem, std::vector<QueueItem>,
                                   QueueComparator>& min_heap) {
     int x1, y1, x2, y2;
@@ -13,15 +14,15 @@ void readData(std::ifstream& input_file, std::vector<Segment>& segments,
             std::swap(y1, y2);
         }
         segments.emplace_back(x1, y1, x2, y2);
-        segment_ptrs.push_back(&segments.back());
         int last_ind = static_cast<int>(segments.size()) - 1;
-        min_heap.push(
-            QueueItem{.segment_ind_ = last_ind,
-                      .oper_type_ = OperType::BEGIN,
-                      .point_ = RealPoint(Fraction(x1, 1), Fraction(y1, 1))});
-        min_heap.push(
-            QueueItem{.segment_ind_ = last_ind,
-                      .oper_type_ = OperType::END,
-                      .point_ = RealPoint(Fraction(x2, 1), Fraction(y2, 1))});
+        min_heap.emplace(last_ind, OperType::BEGIN,
+                         RealPoint(Fraction(x1, 1), Fraction(y1, 1)));
+        min_heap.emplace(last_ind, OperType::END,
+                         RealPoint(Fraction(x2, 1), Fraction(y2, 1)));
+    }
+    for (std::size_t i = 0, segments_size = segments.size(); i < segments_size;
+         ++i) {
+        reversed_segment_ptrs.push_back(static_cast<int>(i));
+        segment_ptrs.push_back(&segments[i]);
     }
 }

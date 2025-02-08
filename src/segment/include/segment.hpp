@@ -1,8 +1,10 @@
 #ifndef BENTLEY_OTTMANN_SRC_SEGMENT
 #define BENTLEY_OTTMANN_SRC_SEGMENT
 
-#include "../../point/include/point.hpp"
+// https://en.wikipedia.org/wiki/Line%E2%80%93line_intersection#Given_two_points_on_each_line_segment
+
 #include <optional>
+#include "../../point/include/point.hpp"
 
 class Segment {
 public:
@@ -16,6 +18,9 @@ public:
     [[nodiscard]] Fraction ordinateVal(const Fraction& x) const noexcept;
 
     [[nodiscard]] const Fraction& getIncline() const noexcept;
+
+    [[nodiscard]] std::optional<RealPoint> findIntersection(
+        const Segment& other) const noexcept;
 
 private:
     const std::optional<Fraction> k_;
