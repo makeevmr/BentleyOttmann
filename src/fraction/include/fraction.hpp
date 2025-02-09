@@ -49,11 +49,14 @@ std::ostream& operator<<(std::ostream& out, const Fraction& frac) noexcept;
 [[nodiscard]] Fraction operator/(const Fraction& left,
                                  const Fraction& right) noexcept;
 
-[[nodiscard]] bool operator>(const Fraction& left,
-                             const Fraction& right) noexcept;
+[[nodiscard]]
+bool operator>(const Fraction& left, const Fraction& right) noexcept;
 
 [[nodiscard]]
 bool operator<(const Fraction& left, const Fraction& right) noexcept;
+
+[[nodiscard]]
+bool operator<=(const Fraction& left, const Fraction& right) noexcept;
 
 // All fractions are irreducible
 [[nodiscard]] bool operator==(const Fraction& left,

@@ -10,6 +10,8 @@ class Segment {
 public:
     Segment(int x1, int y1, int x2, int y2);
 
+    Segment(const IntPoint& point1, const IntPoint& point2);
+
     [[nodiscard]] std::pair<const IntPoint&, const IntPoint&> getPoints()
         const noexcept;
 

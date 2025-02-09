@@ -4,6 +4,30 @@ IntPoint::IntPoint(int64_t x, int64_t y) noexcept
     : x_(x),
       y_(y) {}
 
+IntPoint::IntPoint(const IntPoint& other) noexcept
+    : x_(other.x_),
+      y_(other.y_) {}
+
+IntPoint& IntPoint::operator=(const IntPoint& other) noexcept {
+    if (this != &other) {
+        x_ = other.x_;
+        y_ = other.y_;
+    }
+    return *this;
+}
+
+IntPoint::IntPoint(IntPoint&& other) noexcept
+    : x_(std::move(other.x_)),
+      y_(std::move(other.y_)) {}
+
+IntPoint& IntPoint::operator=(IntPoint&& other) noexcept {
+    if (this != &other) {
+        x_ = std::move(other.x_);
+        y_ = std::move(other.y_);
+    }
+    return *this;
+}
+
 IntPoint::operator RealPoint() const noexcept {
     return RealPoint(Fraction(x_, 1), Fraction(y_, 1));
 }

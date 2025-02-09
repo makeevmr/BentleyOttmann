@@ -8,5 +8,6 @@ add_subdirectory(intersection)
 add_subdirectory(bentley_ottmann)
 
 add_library(main OBJECT main.cpp)
+add_library(generate_data OBJECT generate_data.cpp)
 
 target_include_directories(main PUBLIC queue_item/include)

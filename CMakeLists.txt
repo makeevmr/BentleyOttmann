@@ -18,15 +18,15 @@ set(GCC_LINK_FLAGS "")
 # set(CMAKE_CXX_FLAGS  "${CMAKE_CXX_FLAGS} -g")
 # set(CMAKE_CXX_FLAGS  "${CMAKE_CXX_FLAGS} -O2")
 # set(CMAKE_CXX_FLAGS  "${CMAKE_CXX_FLAGS}")
-set(CMAKE_CXX_FLAGS  "${CMAKE_CXX_FLAGS} ${GCC_ADDITIONAL_WARNINGS_COMPILE_FLAGS} -g")
+# set(CMAKE_CXX_FLAGS  "${CMAKE_CXX_FLAGS} ${GCC_ADDITIONAL_WARNINGS_COMPILE_FLAGS} -g")
 # set(CMAKE_CXX_FLAGS  "${CMAKE_CXX_FLAGS} ${GCC_ADDITIONAL_WARNINGS_COMPILE_FLAGS} -O2 ")
-# set(CMAKE_CXX_FLAGS  "${CMAKE_CXX_FLAGS} ${GCC_ADDITIONAL_WARNINGS_COMPILE_FLAGS}")
+set(CMAKE_CXX_FLAGS  "${CMAKE_CXX_FLAGS} ${GCC_ADDITIONAL_WARNINGS_COMPILE_FLAGS}")
 set(CMAKE_EXE_LINKER_FLAGS  "${CMAKE_EXE_LINKER_FLAGS} ${GCC_LINK_FLAGS}")
 
 add_subdirectory(src)
 
-
 add_executable(bentley_ottmann)
+add_executable(generator)
 
 target_link_libraries(bentley_ottmann PRIVATE 
     gcd
@@ -40,4 +40,12 @@ target_link_libraries(bentley_ottmann PRIVATE
     end_case
     intersection_case
     main
+)
+
+target_link_libraries(generator PRIVATE 
+    gcd
+    fraction
+    point
+    segment
+    generate_data
 )

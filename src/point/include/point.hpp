@@ -10,6 +10,14 @@ struct IntPoint {
 public:
     IntPoint(int64_t x, int64_t y) noexcept;
 
+    IntPoint(const IntPoint& other) noexcept;
+
+    IntPoint& operator=(const IntPoint& other) noexcept;
+
+    IntPoint(IntPoint&& other) noexcept;
+
+    IntPoint& operator=(IntPoint&& other) noexcept;
+
     explicit operator RealPoint() const noexcept;
 
     int64_t x_;
