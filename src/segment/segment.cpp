@@ -59,3 +59,11 @@ Segment::Segment(int x1, int y1, int x2, int y2)
     }
     return {};
 }
+
+[[nodiscard]] Fraction& Segment::getVertSegmParameter() noexcept {
+    return b_;
+}
+
+[[nodiscard]] bool Segment::isVertical() const noexcept {
+    return point1_.x_ == point2_.x_;
+}

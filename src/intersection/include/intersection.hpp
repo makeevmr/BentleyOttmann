@@ -20,8 +20,7 @@ void updateIntersection(
     const std::map<RealPoint, Intersection>::iterator& inter_iter,
     int new_segm_ind);
 
-void createIntersection(const int& vert_segments_num,
-                        const RealPoint& new_point, int lower_seg_ind,
+void createIntersection(const RealPoint& new_point, int lower_seg_ind,
                         const std::pair<int, int>& new_segments_pair,
                         std::priority_queue<QueueItem, std::vector<QueueItem>,
                                             QueueComparator>& min_heap,
@@ -32,7 +31,7 @@ void checkNeighborsIntersection(
     const Fraction& scan_line_value,
     const std::set<const Segment**, StatusComparator>::iterator& left_iter,
     const std::set<const Segment**, StatusComparator>::iterator& right_iter,
-    const std::vector<Segment>& segments,
+    std::vector<Segment>& segments,
     std::priority_queue<QueueItem, std::vector<QueueItem>, QueueComparator>&
         min_heap,
     std::map<RealPoint, Intersection>& intersections);

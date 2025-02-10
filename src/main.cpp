@@ -5,13 +5,15 @@
 
 #include <stack>
 
-int main(int argc, char* argv[]) {
+// int main(int argc, char* argv[]) {
+int main() {
     constexpr int kLimit = -1001;
-    if (argc != 2) {
-        std::cerr << "USAGE: <INPUT FILE NAME>\n";
-        return EXIT_FAILURE;
-    }
-    std::ifstream input_file(argv[1], std::ios::binary);
+    // if (argc != 2) {
+    //     std::cerr << "USAGE: <INPUT FILE NAME>\n";
+    //     return EXIT_FAILURE;
+    // }
+    // std::ifstream input_file(argv[1], std::ios::binary);
+    std::ifstream input_file("../tests/input/input13.txt", std::ios::binary);
     if (!input_file.is_open()) {
         std::cerr << "Couldn't open input file\n";
         return EXIT_FAILURE;
@@ -21,32 +23,25 @@ int main(int argc, char* argv[]) {
     std::vector<Segment> segments;
     std::vector<const Segment*> segment_ptrs;
     std::vector<int> reversed_segment_ptrs;
-    std::map<int, std::map<Fraction, int>> vertical_segments;
     std::priority_queue<QueueItem, std::vector<QueueItem>, QueueComparator>
         min_heap{QueueComparator(segments)};
-    std::stack<RealPoint> intersections_on_line;
     std::map<RealPoint, Intersection> intersections;
     std::set<const Segment**, StatusComparator> status(
         {}, StatusComparator(scan_line, curr_oper_type));
     readData(input_file, segments, segment_ptrs, reversed_segment_ptrs,
-             vertical_segments, min_heap);
+             min_heap);
     while (!min_heap.empty()) {
-        const Fraction new_event_x = min_heap.top().point_.x_;
-        scan_line = new_event_x;
-        int64_t vert_segm_end_y = kLimit;
-        int vert_segm_ind = -1;
+        scan_line = min_heap.top().point_.x_;
         do {
             const QueueItem& new_event = min_heap.top();
             curr_oper_type = new_event.oper_type_;
             switch (new_event.oper_type_) {
                 case OperType::BEGIN:
-                    beginCaseHandler(new_event, vert_segm_end_y, vert_segm_ind,
-                                     segments, segment_ptrs,
-                                     reversed_segment_ptrs, vertical_segments,
-                                     min_heap, intersections, status);
+                    beginCaseHandler(new_event, segments, segment_ptrs,
+                                     reversed_segment_ptrs, min_heap,
+                                     intersections, status);
                     break;
                 case OperType::INTERSECTION:
-                    intersections_on_line.push(new_event.point_);
                     intersectionCaseHandler(new_event, segments, segment_ptrs,
                                             reversed_segment_ptrs, min_heap,
                                             intersections, status);
@@ -58,10 +53,10 @@ int main(int argc, char* argv[]) {
                     break;
             }
             min_heap.pop();
-        } while (!min_heap.empty() && min_heap.top().point_.x_ == new_event_x);
-        while (!intersections_on_line.empty()) {
-            intersections.erase(intersections_on_line.top());
-            intersections_on_line.pop();
+        } while (!min_heap.empty() && min_heap.top().point_.x_ == scan_line);
+        while (!intersections.empty() &&
+               intersections.begin()->first.x_ == scan_line) {
+            intersections.erase(intersections.begin());
         }
     }
     input_file.close();

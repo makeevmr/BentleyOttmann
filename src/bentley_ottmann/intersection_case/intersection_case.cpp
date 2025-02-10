@@ -31,7 +31,7 @@ static void printIntersections(
 // output_file << "]\n";
 
 void intersectionCaseHandler(
-    const QueueItem& new_event, const std::vector<Segment>& segments,
+    const QueueItem& new_event, std::vector<Segment>& segments,
     std::vector<const Segment*>& segment_ptrs,
     std::vector<int>& reversed_segment_ptrs,
     std::priority_queue<QueueItem, std::vector<QueueItem>, QueueComparator>&
@@ -46,18 +46,12 @@ void intersectionCaseHandler(
         "Couldn't find intersection point from min_heap in intersections map");
     printIntersections(intersection_point,
                        inter_f_iter->second.intersec_segms_);
-    // There is no more than 1 non-vertical segment at the intersection
     const Intersection& intersection_item = inter_f_iter->second;
-    if ((intersection_item.intersec_segms_.size() -
-         static_cast<std::size_t>(new_event.segment_ind_)) <= 1) {
-        return;
-    }
     std::set<const Segment**, StatusComparator>::iterator right_swap_iter =
         status.find(&segment_ptrs[reversed_segment_ptrs[intersection_item
                                                             .lower_seg_ind_]]);
     int segments_to_swap =
-        static_cast<int>(intersection_item.intersec_segms_.size()) -
-        new_event.segment_ind_;
+        static_cast<int>(intersection_item.intersec_segms_.size());
     int steps = segments_to_swap - 1;
     std::set<const Segment**, StatusComparator>::iterator left_swap_iter =
         right_swap_iter;

@@ -24,6 +24,10 @@ public:
     [[nodiscard]] std::optional<RealPoint> findIntersection(
         const Segment& other) const noexcept;
 
+    [[nodiscard]] Fraction& getVertSegmParameter() noexcept;
+
+    [[nodiscard]] bool isVertical() const noexcept;
+
 private:
     const std::optional<Fraction> k_;
     Fraction b_;

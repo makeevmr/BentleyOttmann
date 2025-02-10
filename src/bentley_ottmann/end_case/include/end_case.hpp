@@ -5,8 +5,7 @@
 
 #include "../../../intersection/include/intersection.hpp"
 
-void endCaseHandler(const QueueItem& new_event,
-                    const std::vector<Segment>& segments,
+void endCaseHandler(const QueueItem& new_event, std::vector<Segment>& segments,
                     std::vector<const Segment*>& segment_ptrs,
                     const std::vector<int>& reversed_segment_ptrs,
                     std::priority_queue<QueueItem, std::vector<QueueItem>,

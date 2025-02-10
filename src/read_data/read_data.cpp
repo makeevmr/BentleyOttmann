@@ -3,7 +3,6 @@
 void readData(std::ifstream& input_file, std::vector<Segment>& segments,
               std::vector<const Segment*>& segment_ptrs,
               std::vector<int>& reversed_segment_ptrs,
-              std::map<int, std::map<Fraction, int>>& vertical_segments,
               std::priority_queue<QueueItem, std::vector<QueueItem>,
                                   QueueComparator>& min_heap) {
     int x1, y1, x2, y2;
@@ -21,10 +20,6 @@ void readData(std::ifstream& input_file, std::vector<Segment>& segments,
                          RealPoint(Fraction(x1, 1), Fraction(y1, 1)));
         min_heap.emplace(last_ind, OperType::END,
                          RealPoint(Fraction(x2, 1), Fraction(y2, 1)));
-        if (x1 == x2) {
-            vertical_segments[x1].insert(
-                std::pair<Fraction, int>{Fraction(y1, 1), last_ind});
-        }
     }
     for (std::size_t i = 0, segments_size = segments.size(); i < segments_size;
          ++i) {
