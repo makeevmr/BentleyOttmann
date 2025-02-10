@@ -2,38 +2,36 @@
 
 #define assertm(exp, msg) assert((void(msg), exp))
 
-// TODO delete later
 static void printIntersections(
-    std::ofstream& output_file, const RealPoint& intersection_point,
+    const RealPoint& intersection_point,
     const std::unordered_set<int>& intersecting_segments) {
-    // std::cout << intersection_point << ": [";
-    // std::unordered_set<int>::const_iterator hash_set_b_iter =
-    //     intersecting_segments.begin();
-    // std::unordered_set<int>::const_iterator hash_set_e_iter =
-    //     intersecting_segments.end();
-    // std::cout << *(hash_set_b_iter) + 1;
-    // ++hash_set_b_iter;
-    // for (; hash_set_b_iter != hash_set_e_iter; ++hash_set_b_iter) {
-    //     std::cout << ", " << *(hash_set_b_iter) + 1;
-    // }
-    // std::cout << "]\n";
-    output_file << intersection_point << ": [";
+    std::cout << intersection_point << ": [";
     std::unordered_set<int>::const_iterator hash_set_b_iter =
         intersecting_segments.begin();
     std::unordered_set<int>::const_iterator hash_set_e_iter =
         intersecting_segments.end();
-    output_file << *(hash_set_b_iter) + 1;
+    std::cout << *(hash_set_b_iter) + 1;
     ++hash_set_b_iter;
     for (; hash_set_b_iter != hash_set_e_iter; ++hash_set_b_iter) {
-        output_file << ", " << *(hash_set_b_iter) + 1;
+        std::cout << ", " << *(hash_set_b_iter) + 1;
     }
-    output_file << "]\n";
+    std::cout << "]\n";
+
+    // output_file << intersection_point << ": [";
+    // std::unordered_set<int>::const_iterator hash_set_b_iter =
+    //     intersecting_segments.begin();
+    // std::unordered_set<int>::const_iterator hash_set_e_iter =
+    //     intersecting_segments.end();
+    // output_file << *(hash_set_b_iter) + 1;
+    // ++hash_set_b_iter;
+    // for (; hash_set_b_iter != hash_set_e_iter; ++hash_set_b_iter) {
+    //     output_file << ", " << *(hash_set_b_iter) + 1;
+    // }
+    // output_file << "]\n";
 }
 
-// TODO delete later
 void intersectionCaseHandler(
-    std::ofstream& output_file, const QueueItem& new_event,
-    const std::vector<Segment>& segments,
+    const QueueItem& new_event, const std::vector<Segment>& segments,
     std::vector<const Segment*>& segment_ptrs,
     std::vector<int>& reversed_segment_ptrs,
     std::priority_queue<QueueItem, std::vector<QueueItem>, QueueComparator>&
@@ -46,7 +44,7 @@ void intersectionCaseHandler(
     assertm(
         inter_f_iter != intersections.end(),
         "Couldn't find intersection point from min_heap in intersections map");
-    printIntersections(output_file, intersection_point,
+    printIntersections(intersection_point,
                        inter_f_iter->second.intersec_segms_);
     // There is no more than 1 non-vertical segment at the intersection
     const Intersection& intersection_item = inter_f_iter->second;

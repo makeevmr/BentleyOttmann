@@ -26,7 +26,7 @@ public:
 
 private:
     const std::optional<Fraction> k_;
-    const std::optional<Fraction> b_;
+    Fraction b_;
     IntPoint point1_;
     IntPoint point2_;
 };

@@ -26,6 +26,9 @@ public:
 
 std::ostream& operator<<(std::ostream& out, const IntPoint& point) noexcept;
 
+[[nodiscard]] bool operator==(const IntPoint& left,
+                              const IntPoint& right) noexcept;
+
 struct RealPoint {
 public:
     RealPoint(const Fraction& x, const Fraction& y) noexcept;

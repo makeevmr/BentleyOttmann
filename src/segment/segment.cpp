@@ -5,7 +5,7 @@
 Segment::Segment(int x1, int y1, int x2, int y2)
     : k_(x2 == x1 ? std::optional<Fraction>()
                   : std::optional<Fraction>(Fraction(y2 - y1, x2 - x1))),
-      b_(x2 == x1 ? std::optional<Fraction>()
+      b_(x2 == x1 ? Fraction(y1, 1)
                   : Fraction(y1, 1) - k_.value() * Fraction(x1, 1)),
       point1_(x1, y1),
       point2_(x2, y2) {}
@@ -15,10 +15,9 @@ Segment::Segment(int x1, int y1, int x2, int y2)
     return std::pair<const IntPoint&, const IntPoint&>{point1_, point2_};
 }
 
-// The function calculates coordinates only for non-vertical lines, since
-// only such lines are in the Status.
+// Return ordinate for non vertical segments, parameter for vertical segments
 [[nodiscard]] Fraction Segment::ordinateVal(const Fraction& x) const noexcept {
-    return k_.value() * x + b_.value();
+    return point1_.x_ == point2_.x_ ? b_ : k_.value() * x + b_;
 }
 
 // applies only to non - vertical segments
@@ -29,6 +28,12 @@ Segment::Segment(int x1, int y1, int x2, int y2)
 
 [[nodiscard]] std::optional<RealPoint> Segment::findIntersection(
     const Segment& other) const noexcept {
+    if (point2_ == other.point1_) {
+        return static_cast<RealPoint>(point2_);
+    }
+    if (other.point2_ == point1_) {
+        return static_cast<RealPoint>(point1_);
+    }
     const auto& [other_point1, other_point2] = other.getPoints();
     const int64_t denom =
         (point1_.x_ - point2_.x_) * (other_point1.y_ - other_point2.y_) -
@@ -45,7 +50,7 @@ Segment::Segment(int x1, int y1, int x2, int y2)
     if (((t_numer <= 0 && denom < 0) || (t_numer >= 0 && denom > 0)) &&
         ((u_numer <= 0 && denom > 0) || (u_numer >= 0 && denom < 0)) &&
         (std::abs(t_numer) <= std::abs(denom)) &&
-        (std::abs(u_numer) < std::abs(denom))) {
+        (std::abs(u_numer) <= std::abs(denom))) {
         Fraction x(point1_.x_ * denom + t_numer * (point2_.x_ - point1_.x_),
                    denom);
         Fraction y(point1_.y_ * denom + t_numer * (point2_.y_ - point1_.y_),

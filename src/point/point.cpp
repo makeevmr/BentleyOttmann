@@ -37,6 +37,11 @@ std::ostream& operator<<(std::ostream& out, const IntPoint& point) noexcept {
     return out;
 }
 
+[[nodiscard]] bool operator==(const IntPoint& left,
+                              const IntPoint& right) noexcept {
+    return left.x_ == right.x_ && left.y_ == right.y_;
+}
+
 RealPoint::RealPoint(const Fraction& x, const Fraction& y) noexcept
     : x_(x),
       y_(y) {}

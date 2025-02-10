@@ -8,13 +8,14 @@
 
 class StatusComparator {
 public:
-    explicit StatusComparator(Fraction& scan_line);
+    StatusComparator(Fraction& scan_line, OperType& curr_oper_type);
 
     bool operator()(const Segment** const& left,
                     const Segment** const& right) const;
 
 private:
     Fraction& scan_line_x_;
+    OperType& curr_oper_type_;
 };
 
 class QueueComparator {
