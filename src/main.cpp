@@ -3,9 +3,15 @@
 #include "bentley_ottmann/end_case/include/end_case.hpp"
 #include "bentley_ottmann/intersection_case/include/intersection_case.hpp"
 
-int main() {
+#include <stack>
+
+int main(int argc, char* argv[]) {
     constexpr int kLimit = -1001;
-    std::ifstream input_file("../tests/input/input9.txt", std::ios::binary);
+    if (argc != 2) {
+        std::cerr << "USAGE: <INPUT FILE NAME>\n";
+        return EXIT_FAILURE;
+    }
+    std::ifstream input_file(argv[1], std::ios::binary);
     if (!input_file.is_open()) {
         std::cerr << "Couldn't open input file\n";
         return EXIT_FAILURE;
@@ -18,6 +24,7 @@ int main() {
     std::map<int, std::map<Fraction, int>> vertical_segments;
     std::priority_queue<QueueItem, std::vector<QueueItem>, QueueComparator>
         min_heap{QueueComparator(segments)};
+    std::stack<RealPoint> intersections_on_line;
     std::map<RealPoint, Intersection> intersections;
     std::set<const Segment**, StatusComparator> status(
         {}, StatusComparator(scan_line, curr_oper_type));
@@ -39,6 +46,7 @@ int main() {
                                      min_heap, intersections, status);
                     break;
                 case OperType::INTERSECTION:
+                    intersections_on_line.push(new_event.point_);
                     intersectionCaseHandler(new_event, segments, segment_ptrs,
                                             reversed_segment_ptrs, min_heap,
                                             intersections, status);
@@ -51,6 +59,10 @@ int main() {
             }
             min_heap.pop();
         } while (!min_heap.empty() && min_heap.top().point_.x_ == new_event_x);
+        while (!intersections_on_line.empty()) {
+            intersections.erase(intersections_on_line.top());
+            intersections_on_line.pop();
+        }
     }
     input_file.close();
     return EXIT_SUCCESS;

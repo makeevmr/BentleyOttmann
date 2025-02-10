@@ -16,19 +16,19 @@ static void printIntersections(
         std::cout << ", " << *(hash_set_b_iter) + 1;
     }
     std::cout << "]\n";
-
-    // output_file << intersection_point << ": [";
-    // std::unordered_set<int>::const_iterator hash_set_b_iter =
-    //     intersecting_segments.begin();
-    // std::unordered_set<int>::const_iterator hash_set_e_iter =
-    //     intersecting_segments.end();
-    // output_file << *(hash_set_b_iter) + 1;
-    // ++hash_set_b_iter;
-    // for (; hash_set_b_iter != hash_set_e_iter; ++hash_set_b_iter) {
-    //     output_file << ", " << *(hash_set_b_iter) + 1;
-    // }
-    // output_file << "]\n";
 }
+
+// output_file << intersection_point << ": [";
+// std::unordered_set<int>::const_iterator hash_set_b_iter =
+//     intersecting_segments.begin();
+// std::unordered_set<int>::const_iterator hash_set_e_iter =
+//     intersecting_segments.end();
+// output_file << *(hash_set_b_iter) + 1;
+// ++hash_set_b_iter;
+// for (; hash_set_b_iter != hash_set_e_iter; ++hash_set_b_iter) {
+//     output_file << ", " << *(hash_set_b_iter) + 1;
+// }
+// output_file << "]\n";
 
 void intersectionCaseHandler(
     const QueueItem& new_event, const std::vector<Segment>& segments,
@@ -90,12 +90,12 @@ void intersectionCaseHandler(
         left_swap_iter = std::next(left_swap_iter);
     }
     if (left_swap_iter_copy != status.begin()) {
-        checkNeighborsIntersection(std::prev(left_swap_iter_copy),
-                                   left_swap_iter_copy, segments, min_heap,
-                                   intersections);
+        checkNeighborsIntersection(
+            new_event.point_.x_, std::prev(left_swap_iter_copy),
+            left_swap_iter_copy, segments, min_heap, intersections);
     }
     if (std::next(right_swap_iter_copy) != status.end()) {
-        checkNeighborsIntersection(right_swap_iter_copy,
+        checkNeighborsIntersection(new_event.point_.x_, right_swap_iter_copy,
                                    std::next(right_swap_iter_copy), segments,
                                    min_heap, intersections);
     }

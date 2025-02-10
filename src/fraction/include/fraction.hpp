@@ -52,6 +52,9 @@ std::ostream& operator<<(std::ostream& out, const Fraction& frac) noexcept;
 [[nodiscard]]
 bool operator>(const Fraction& left, const Fraction& right) noexcept;
 
+[[nodiscard]] bool operator>=(const Fraction& left,
+                              const Fraction& right) noexcept;
+
 [[nodiscard]]
 bool operator<(const Fraction& left, const Fraction& right) noexcept;
 

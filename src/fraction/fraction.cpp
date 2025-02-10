@@ -113,6 +113,11 @@ std::ostream& operator<<(std::ostream& out, const Fraction& frac) noexcept {
            (left_int_div == right_int_div && left_remainder > right_remainder);
 }
 
+[[nodiscard]] bool operator>=(const Fraction& left,
+                              const Fraction& right) noexcept {
+    return !(left < right);
+}
+
 [[nodiscard]] bool operator<(const Fraction& left,
                              const Fraction& right) noexcept {
     return !(left > right) && left != right;

@@ -78,12 +78,14 @@ void beginCaseHandler(
         assertm(is_inserted, "NO INSERTSION");
         // Check neighbor above and below
         if (status.begin() != ins_iter) {
-            checkNeighborsIntersection(std::prev(ins_iter), ins_iter, segments,
-                                       min_heap, intersections);
+            checkNeighborsIntersection(new_event.point_.x_, std::prev(ins_iter),
+                                       ins_iter, segments, min_heap,
+                                       intersections);
         }
         if (std::next(ins_iter) != status.end()) {
-            checkNeighborsIntersection(std::next(ins_iter), ins_iter, segments,
-                                       min_heap, intersections);
+            checkNeighborsIntersection(new_event.point_.x_, std::next(ins_iter),
+                                       ins_iter, segments, min_heap,
+                                       intersections);
         }
         // Check if we are in vert segment and if so, find
         // intersection point with non-vertical segment

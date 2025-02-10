@@ -34,6 +34,7 @@ void createIntersection(const int& vert_segments_num,
 
 // Only for non-vertical segments
 void checkNeighborsIntersection(
+    const Fraction& scan_line_value,
     const std::set<const Segment**, StatusComparator>::iterator& left_iter,
     const std::set<const Segment**, StatusComparator>::iterator& right_iter,
     const std::vector<Segment>& segments,
@@ -45,7 +46,8 @@ void checkNeighborsIntersection(
     int right_iter_ind = static_cast<int>(**right_iter - segm_begin_ptr);
     const auto& intersection_point =
         segments[left_iter_ind].findIntersection(segments[right_iter_ind]);
-    if (intersection_point.has_value()) {
+    if (intersection_point.has_value() &&
+        intersection_point.value().x_ >= scan_line_value) {
         const auto& f_iter = intersections.find(intersection_point.value());
         // The point is already in intersections
         if (f_iter != intersections.end()) {

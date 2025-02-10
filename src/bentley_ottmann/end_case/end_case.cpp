@@ -24,8 +24,9 @@ void endCaseHandler(const QueueItem& new_event,
         std::next(status_f_iter) != status.end()) {
         const auto& left_neighbor = std::prev(status_f_iter);
         const auto& right_neighbor = std::next(status_f_iter);
-        checkNeighborsIntersection(left_neighbor, right_neighbor, segments,
-                                   min_heap, intersections);
+        checkNeighborsIntersection(new_event.point_.x_, left_neighbor,
+                                   right_neighbor, segments, min_heap,
+                                   intersections);
     }
     status.erase(status_f_iter);
 }

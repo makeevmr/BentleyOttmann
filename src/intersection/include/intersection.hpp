@@ -29,6 +29,7 @@ void createIntersection(const int& vert_segments_num,
 
 // Only for non-vertical segments
 void checkNeighborsIntersection(
+    const Fraction& scan_line_value,
     const std::set<const Segment**, StatusComparator>::iterator& left_iter,
     const std::set<const Segment**, StatusComparator>::iterator& right_iter,
     const std::vector<Segment>& segments,
