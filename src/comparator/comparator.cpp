@@ -56,6 +56,8 @@ bool QueueComparator::operator()(const QueueItem& left,
     const OperType& left_op = left.oper_type_;
     const OperType& right_op = right.oper_type_;
     bool is_left_vert_segm = false;
+    const Segment& left_segm = segments_[left.segment_ind_];
+    const Segment& right_segm = segments_[right.segment_ind_];
     if (left_op == OperType::BEGIN || left_op == OperType::END) {
         is_left_vert_segm = segments_[left.segment_ind_].isVertical();
     }
@@ -65,6 +67,9 @@ bool QueueComparator::operator()(const QueueItem& left,
          (left_op == OperType::END && right_op == OperType::INTERSECTION));
     return (x1 > x2) ||
            ((x1 == x2) &&
-            ((y1 > y2) || (y1 == y2 && (oper_order || (left_op == right_op &&
-                                                       is_left_vert_segm)))));
+            ((left_op == OperType::BEGIN && right_op == OperType::BEGIN &&
+              left_segm.isVertical() && !right_segm.isVertical()) ||
+             (y1 > y2) ||
+             (y1 == y2 &&
+              (oper_order || (left_op == right_op && is_left_vert_segm)))));
 }

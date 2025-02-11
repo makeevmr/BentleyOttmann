@@ -13,7 +13,7 @@ int main() {
     //     return EXIT_FAILURE;
     // }
     // std::ifstream input_file(argv[1], std::ios::binary);
-    std::ifstream input_file("../tests/input/input13.txt", std::ios::binary);
+    std::ifstream input_file("../tests/input/input12.txt", std::ios::binary);
     if (!input_file.is_open()) {
         std::cerr << "Couldn't open input file\n";
         return EXIT_FAILURE;
