@@ -3,8 +3,6 @@
 #include "bentley_ottmann/end_case/include/end_case.hpp"
 #include "bentley_ottmann/intersection_case/include/intersection_case.hpp"
 
-#include <stack>
-
 int main(int argc, char* argv[]) {
     constexpr int kLimit = -1001;
     if (argc != 2) {
@@ -12,7 +10,6 @@ int main(int argc, char* argv[]) {
         return EXIT_FAILURE;
     }
     std::ifstream input_file(argv[1], std::ios::binary);
-    std::ofstream output_file(argv[2], std::ios::binary);
     if (!input_file.is_open()) {
         std::cerr << "Couldn't open input file\n";
         return EXIT_FAILURE;
