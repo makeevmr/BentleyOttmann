@@ -5,15 +5,15 @@
 
 #include <stack>
 
-// int main(int argc, char* argv[]) {
-int main() {
+int main(int, char* argv[]) {
     constexpr int kLimit = -1001;
     // if (argc != 2) {
     //     std::cerr << "USAGE: <INPUT FILE NAME>\n";
     //     return EXIT_FAILURE;
     // }
-    // std::ifstream input_file(argv[1], std::ios::binary);
-    std::ifstream input_file("../tests/input/input12.txt", std::ios::binary);
+    std::ifstream input_file(argv[1], std::ios::binary);
+    // TODO delete later
+    std::ofstream output_file(argv[2], std::ios::binary);
     if (!input_file.is_open()) {
         std::cerr << "Couldn't open input file\n";
         return EXIT_FAILURE;
@@ -42,9 +42,9 @@ int main() {
                                      intersections, status);
                     break;
                 case OperType::INTERSECTION:
-                    intersectionCaseHandler(new_event, segments, segment_ptrs,
-                                            reversed_segment_ptrs, min_heap,
-                                            intersections, status);
+                    intersectionCaseHandler(output_file, new_event, segments,
+                                            segment_ptrs, reversed_segment_ptrs,
+                                            min_heap, intersections, status);
                     break;
                 case OperType::END:
                     endCaseHandler(new_event, segments, segment_ptrs,
@@ -60,5 +60,7 @@ int main() {
         }
     }
     input_file.close();
+    // TODO delete later
+    output_file.close();
     return EXIT_SUCCESS;
 }

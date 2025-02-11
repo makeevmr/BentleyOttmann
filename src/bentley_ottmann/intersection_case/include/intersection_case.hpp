@@ -6,8 +6,8 @@
 #include "../../../intersection/include/intersection.hpp"
 
 void intersectionCaseHandler(
-    const QueueItem& new_event, std::vector<Segment>& segments,
-    std::vector<const Segment*>& segment_ptrs,
+    std::ofstream& output_file, const QueueItem& new_event,
+    std::vector<Segment>& segments, std::vector<const Segment*>& segment_ptrs,
     std::vector<int>& reversed_segment_ptrs,
     std::priority_queue<QueueItem, std::vector<QueueItem>, QueueComparator>&
         min_heap,
