@@ -5,7 +5,7 @@ add_subdirectory(segment)
 add_subdirectory(comparator)
 add_subdirectory(read_data)
 add_subdirectory(intersection)
-add_subdirectory(bentley_ottmann)
+add_subdirectory(case_handlers)
 
 add_library(main OBJECT main.cpp)
 add_library(generate_data OBJECT generate_data.cpp)

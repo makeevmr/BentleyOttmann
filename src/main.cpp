@@ -1,7 +1,7 @@
 #include "read_data/include/read_data.hpp"
-#include "bentley_ottmann/begin_case/include/begin_case.hpp"
-#include "bentley_ottmann/end_case/include/end_case.hpp"
-#include "bentley_ottmann/intersection_case/include/intersection_case.hpp"
+#include "case_handlers/begin_case/include/begin_case.hpp"
+#include "case_handlers/end_case/include/end_case.hpp"
+#include "case_handlers/intersection_case/include/intersection_case.hpp"
 
 int main(int argc, char* argv[]) {
     constexpr int kLimit = -1001;

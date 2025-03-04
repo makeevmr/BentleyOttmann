@@ -7,26 +7,87 @@ set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
 
-# use target_compile_options(<target_name> PUBLIC <flags_list>) for each translation unit or use approach below
-set(GCC_ADDITIONAL_WARNINGS_COMPILE_FLAGS "-Werror -Wall -Wextra -Wpedantic -Wcast-align -Wcast-qual -Wconversion -Wctor-dtor-privacy -Wenum-compare -Wfloat-equal -Wnon-virtual-dtor -Wold-style-cast -Woverloaded-virtual -Wredundant-decls -Wsign-promo")
+set(GCC_DEBUG_BUILD_TYPE_COMPILE_FLAGS "\
+-Werror \
+-Wall \
+-Wextra \
+-Wpedantic \
+-Wcast-align \
+-Wcast-qual \
+-Wconversion \
+-Wctor-dtor-privacy \
+-Wenum-compare \
+-Wfloat-equal \
+-Wnon-virtual-dtor \
+-Wold-style-cast \
+-Woverloaded-virtual \
+-Wredundant-decls \
+-Wsign-promo \
+-g \
+")
 
-# set(GCC_ADDITIONAL_WARNINGS_COMPILE_FLAGS "-Werror -Wall -Wextra -Wpedantic -Wcast-align -Wcast-qual -Wconversion -Wctor-dtor-privacy -Wenum-compare -Wfloat-equal -Wnon-virtual-dtor -Wold-style-cast -Woverloaded-virtual -Wredundant-decls -Wsign-conversion -Wsign-promo")
+# set(GCC_DEBUG_BUILD_TYPE_COMPILE_FLAGS "\
+# -Werror \
+# -Wall \
+# -Wextra \
+# -Wpedantic \
+# -Wcast-align \
+# -Wcast-qual \
+# -Wconversion \
+# -Wctor-dtor-privacy \
+# -Wenum-compare \
+# -Wfloat-equal \
+# -Wnon-virtual-dtor \
+# -Wold-style-cast \
+# -Woverloaded-virtual \
+# -Wredundant-decls \
+# -Wsign-conversion \
+# -Wsign-promo \
+# -g \
+# ")
 
 
-set(GCC_LINK_FLAGS "")
-
-# set(CMAKE_CXX_FLAGS  "${CMAKE_CXX_FLAGS} -g")
-# set(CMAKE_CXX_FLAGS  "${CMAKE_CXX_FLAGS} -O2")
-# set(CMAKE_CXX_FLAGS  "${CMAKE_CXX_FLAGS}")
-# set(CMAKE_CXX_FLAGS  "${CMAKE_CXX_FLAGS} ${GCC_ADDITIONAL_WARNINGS_COMPILE_FLAGS} -g")
-set(CMAKE_CXX_FLAGS  "${CMAKE_CXX_FLAGS} ${GCC_ADDITIONAL_WARNINGS_COMPILE_FLAGS} -O2 ")
-# set(CMAKE_CXX_FLAGS  "${CMAKE_CXX_FLAGS} ${GCC_ADDITIONAL_WARNINGS_COMPILE_FLAGS}")
-set(CMAKE_EXE_LINKER_FLAGS  "${CMAKE_EXE_LINKER_FLAGS} ${GCC_LINK_FLAGS}")
+set(GCC_RELEASE_BUILD_TYPE_COMPILE_FLAGS "\
+-DNDEBUG \
+-O2 \
+")
 
 add_subdirectory(src)
 
 add_executable(bentley_ottmann)
 add_executable(generator)
+
+if(CMAKE_BUILD_TYPE MATCHES Release)
+    message(STATUS "RELEASE BUILD TYPE")
+    target_compile_options(bentley_ottmann   PUBLIC SHELL:${GCC_RELEASE_BUILD_TYPE_COMPILE_FLAGS})
+    target_compile_options(gcd               PUBLIC SHELL:${GCC_RELEASE_BUILD_TYPE_COMPILE_FLAGS})
+    target_compile_options(fraction          PUBLIC SHELL:${GCC_RELEASE_BUILD_TYPE_COMPILE_FLAGS})
+    target_compile_options(point             PUBLIC SHELL:${GCC_RELEASE_BUILD_TYPE_COMPILE_FLAGS})
+    target_compile_options(segment           PUBLIC SHELL:${GCC_RELEASE_BUILD_TYPE_COMPILE_FLAGS})
+    target_compile_options(comparator        PUBLIC SHELL:${GCC_RELEASE_BUILD_TYPE_COMPILE_FLAGS})
+    target_compile_options(read_data         PUBLIC SHELL:${GCC_RELEASE_BUILD_TYPE_COMPILE_FLAGS})
+    target_compile_options(intersection      PUBLIC SHELL:${GCC_RELEASE_BUILD_TYPE_COMPILE_FLAGS})
+    target_compile_options(begin_case        PUBLIC SHELL:${GCC_RELEASE_BUILD_TYPE_COMPILE_FLAGS})
+    target_compile_options(end_case          PUBLIC SHELL:${GCC_RELEASE_BUILD_TYPE_COMPILE_FLAGS})
+    target_compile_options(intersection_case PUBLIC SHELL:${GCC_RELEASE_BUILD_TYPE_COMPILE_FLAGS})
+    target_compile_options(main              PUBLIC SHELL:${GCC_RELEASE_BUILD_TYPE_COMPILE_FLAGS})
+endif()
+
+if(CMAKE_BUILD_TYPE MATCHES Debug)
+    message(STATUS "DEBUG BUILD TYPE")
+    target_compile_options(bentley_ottmann    PUBLIC SHELL:${GCC_DEBUG_BUILD_TYPE_COMPILE_FLAGS})
+    target_compile_options(gcd                PUBLIC SHELL:${GCC_DEBUG_BUILD_TYPE_COMPILE_FLAGS})
+    target_compile_options(fraction           PUBLIC SHELL:${GCC_DEBUG_BUILD_TYPE_COMPILE_FLAGS})
+    target_compile_options(point              PUBLIC SHELL:${GCC_DEBUG_BUILD_TYPE_COMPILE_FLAGS})
+    target_compile_options(segment            PUBLIC SHELL:${GCC_DEBUG_BUILD_TYPE_COMPILE_FLAGS})
+    target_compile_options(comparator         PUBLIC SHELL:${GCC_DEBUG_BUILD_TYPE_COMPILE_FLAGS})
+    target_compile_options(read_data          PUBLIC SHELL:${GCC_DEBUG_BUILD_TYPE_COMPILE_FLAGS})
+    target_compile_options(intersection       PUBLIC SHELL:${GCC_DEBUG_BUILD_TYPE_COMPILE_FLAGS})
+    target_compile_options(begin_case         PUBLIC SHELL:${GCC_DEBUG_BUILD_TYPE_COMPILE_FLAGS})
+    target_compile_options(end_case           PUBLIC SHELL:${GCC_DEBUG_BUILD_TYPE_COMPILE_FLAGS})
+    target_compile_options(intersection_case  PUBLIC SHELL:${GCC_DEBUG_BUILD_TYPE_COMPILE_FLAGS})
+    target_compile_options(main               PUBLIC SHELL:${GCC_DEBUG_BUILD_TYPE_COMPILE_FLAGS})
+endif()
 
 target_link_libraries(bentley_ottmann PRIVATE 
     gcd
