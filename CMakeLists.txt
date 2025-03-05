@@ -8,17 +8,17 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
-list(APPEND TARGETS 
-    gcd 
-    fraction 
-    point 
-    segment 
-    comparator 
-    read_data 
-    intersection 
-    begin_case 
-    end_case 
-    intersection_case 
+list(APPEND TARGETS
+    gcd
+    fraction
+    point
+    segment
+    comparator
+    read_data
+    intersection
+    begin_case
+    end_case
+    intersection_case
     main
 )
 
@@ -29,7 +29,7 @@ add_executable(generator)
 
 target_link_libraries(bentley_ottmann PRIVATE ${TARGETS})
 
-target_link_libraries(generator PRIVATE 
+target_link_libraries(generator PRIVATE
     gcd
     fraction
     point

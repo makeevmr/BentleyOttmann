@@ -40,13 +40,21 @@ list(APPEND GCC_DEBUG_BUILD_TYPE_COMPILE_FLAGS
 if(CMAKE_BUILD_TYPE STREQUAL CustomRelease)
     message(STATUS "CustomRelease BUILD TYPE")
     foreach(target IN ZIP_LISTS TARGETS)
-        target_compile_options(${target_0} PUBLIC ${GCC_RELEASE_BUILD_TYPE_COMPILE_FLAGS})
+        target_compile_options(
+            ${target_0}
+            PUBLIC
+            ${GCC_RELEASE_BUILD_TYPE_COMPILE_FLAGS}
+        )
     endforeach()
 endif()
 
 if(CMAKE_BUILD_TYPE STREQUAL CustomDebug)
     message(STATUS "CustomDebug BUILD TYPE")
     foreach(target IN ZIP_LISTS TARGETS)
-        target_compile_options(${target_0} PUBLIC ${GCC_DEBUG_BUILD_TYPE_COMPILE_FLAGS})
+        target_compile_options(
+            ${target_0}
+            PUBLIC
+            ${GCC_DEBUG_BUILD_TYPE_COMPILE_FLAGS}
+        )
     endforeach()
 endif()
