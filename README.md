@@ -4,8 +4,7 @@ Implementation of the Bentley-Ottman Algorithm
 ## How to run
 Clone the project
 ```
-mkdir build
-cd build
+mkdir build && cd build
 cmake .. -DCMAKE_BUILD_TYPE=CustomRelease
 cmake --build . --target bentley_ottmann
 ./bentley_ottmann <input_file_name>
