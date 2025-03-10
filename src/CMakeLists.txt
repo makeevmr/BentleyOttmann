@@ -19,6 +19,7 @@ list(APPEND GCC_RELEASE_BUILD_TYPE_COMPILE_FLAGS
 )
 
 list(APPEND GCC_DEBUG_BUILD_TYPE_COMPILE_FLAGS
+    -g
     -Werror
     -Wall
     -Wextra
@@ -34,11 +35,10 @@ list(APPEND GCC_DEBUG_BUILD_TYPE_COMPILE_FLAGS
     -Woverloaded-virtual
     -Wredundant-decls
     -Wsign-promo
-    -g
 )
 
-if(CMAKE_BUILD_TYPE STREQUAL CustomRelease)
-    message(STATUS "CustomRelease BUILD TYPE")
+if(CMAKE_BUILD_TYPE STREQUAL Release)
+    message(STATUS "RELEASE BUILD TYPE")
     foreach(target IN ZIP_LISTS TARGETS)
         target_compile_options(
             ${target_0}
@@ -48,8 +48,8 @@ if(CMAKE_BUILD_TYPE STREQUAL CustomRelease)
     endforeach()
 endif()
 
-if(CMAKE_BUILD_TYPE STREQUAL CustomDebug)
-    message(STATUS "CustomDebug BUILD TYPE")
+if(CMAKE_BUILD_TYPE STREQUAL Debug)
+    message(STATUS "DEBUG BUILD TYPE")
     foreach(target IN ZIP_LISTS TARGETS)
         target_compile_options(
             ${target_0}

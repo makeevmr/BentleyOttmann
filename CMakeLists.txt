@@ -8,6 +8,9 @@ set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
 project(bentley_ottmann LANGUAGES CXX)
 
+set(CMAKE_CXX_FLAGS_RELEASE "")
+set(CMAKE_CXX_FLAGS_DEBUG "")
+
 list(APPEND TARGETS
     gcd
     fraction
